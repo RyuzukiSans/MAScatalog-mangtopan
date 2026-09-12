@@ -1,0 +1,475 @@
+/* CatalogFouad - Matcha Mood Palette + Glassmorphism - v11.2 */
+:root {
+  --soft-matcha: #B5C58C;
+  --earthy-green: #A3B18A;
+  --milky-latte: #C9D6BF;
+  --light-accent: #F4F6F0;
+  --dark-matcha: #2D3A27;
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(45, 58, 39, 0.08);
+  --header-h-mobile: 64px;
+}
+
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--light-accent);
+  color: var(--dark-matcha);
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  overscroll-behavior-y: auto;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+  }
+  html {
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+.no-overflow, main, section, header, footer {
+  max-width: 100vw;
+}
+
+/* ==================== SWIPER FIX ==================== */
+.swiper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  touch-action: pan-y !important;
+}
+.swiper-wrapper { max-width: 100% !important; }
+.swiper-slide {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex-shrink: 0 !important;
+}
+
+/* ==================== BOOK RATIO ==================== */
+.book-ratio { aspect-ratio: 3 / 4; }
+@media (min-width: 768px) {
+  .book-ratio { aspect-ratio: 3 / 4.2; }
+}
+@supports not (aspect-ratio: 3/4) {
+  .book-ratio { position: relative; padding-bottom: 133%; }
+  .book-ratio > * { position: absolute; inset: 0; }
+}
+
+/* ==================== AUTHOR PHOTO DINAMIS ==================== */
+.photo-dynamic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .photo-dynamic-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.photo-dynamic-item {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #F4F6F0;
+  border: 1px solid rgba(201, 214, 191, 0.5);
+  aspect-ratio: 3 / 4;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.photo-dynamic-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(45, 58, 39, 0.15);
+}
+.photo-dynamic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-dynamic-grid:has(> :only-child) {
+  grid-template-columns: 1fr;
+  max-width: 420px;
+}
+.photo-dynamic-grid:has(> :only-child) .photo-dynamic-item {
+  aspect-ratio: 4 / 5;
+}
+
+/* ==================== GLASSMORPHISM ==================== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 12px 40px 0 rgba(45, 58, 39, 0.12);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(45, 58, 39, 0.15);
+  border-color: var(--soft-matcha);
+}
+.glass-card:active { transform: scale(0.97) translateY(-2px); }
+
+/* ==================== MATCHA GRADIENTS ==================== */
+.matcha-gradient {
+  background: linear-gradient(135deg, var(--soft-matcha) 0%, var(--earthy-green) 100%);
+}
+.matcha-gradient-light {
+  background: linear-gradient(135deg, var(--milky-latte) 0%, var(--light-accent) 100%);
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--light-accent); }
+::-webkit-scrollbar-thumb { background: var(--earthy-green); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--soft-matcha); }
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ==================== CATEGORY PILL ==================== */
+.category-pill {
+  transition: all 0.25s ease;
+  border: 1.5px solid var(--milky-latte);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+}
+.category-pill.active {
+  background: var(--dark-matcha);
+  color: white;
+  border-color: var(--dark-matcha);
+  box-shadow: 0 4px 12px rgba(45,58,39,0.2);
+}
+.category-pill:hover:not(.active) {
+  border-color: var(--soft-matcha);
+  background: white;
+}
+
+/* ==================== SEARCH INPUT ==================== */
+.search-glass {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.6);
+  transition: all 0.3s;
+}
+.search-glass:focus {
+  background: white;
+  border-color: var(--soft-matcha);
+  box-shadow: 0 0 0 4px rgba(181, 197, 140, 0.2);
+  outline: none;
+}
+
+/* ==================== TABS (GENERIC) ==================== */
+.tab-btn {
+  position: relative;
+  transition: color 0.25s, background-color 0.25s;
+  color: rgba(45,58,39,0.6);
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.tab-btn:hover { color: rgba(45,58,39,0.85); }
+.tab-btn.active {
+  color: var(--dark-matcha);
+  font-weight: 700;
+}
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12%;
+  right: 12%;
+  height: 3px;
+  background: var(--dark-matcha);
+  border-radius: 3px 3px 0 0;
+  transition: left 0.25s ease, right 0.25s ease;
+}
+
+/* ==================== DETAIL PAGE TABS (FIXED v11.2) ====================
+ * 
+ * MASALAH MOBILE SEBELUMNYA:
+ * ─────────────────────────
+ * 1. Parent `.glass.rounded-[20px].overflow-hidden` mem-block position: sticky
+ *    karena CSS spec: "sticky tidak bekerja kalau ada ancestor dengan overflow
+ *    selain visible". Ini bug paling sering di mobile.
+ * 2. Tab tidak menempel di header → malah overlap ke konten.
+ * 
+ * SOLUSI v11.2:
+ * ────────────
+ * - Untuk MOBILE: matikan `overflow: hidden` di parent lewat CSS class khusus
+ *   `.detail-tabs-container` (dipasang di detail.html).
+ * - Sticky dipindah ke `.detail-tabs-container` (parent luar), BUKAN di wrapper tab.
+ * - Wrapper tab jadi normal (relative).
+ * - CSS variable --header-h-mobile di-set otomatis oleh JS.
+ */
+
+/* Container tab (parent dari wrapper tab + pane) */
+.detail-tabs-container {
+  /* Default: relative, no overflow (agar sticky child bekerja) */
+  position: relative;
+  /* Mobile: sticky wrapper-nya juga, tapi tetap punya border-radius */
+  border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+  .detail-tabs-container {
+    /* PENTING: hapus overflow-hidden di mobile supaya sticky bekerja */
+    overflow: visible !important;
+  }
+}
+
+/* Wrapper tab — sticky HANYA di mobile */
+.detail-tabs-wrapper {
+  position: relative;
+  background: transparent;
+  transition: background-color 0.2s, backdrop-filter 0.2s, box-shadow 0.2s;
+}
+
+/* Saat mode sticky aktif (di-set oleh JS), beri styling mengambang */
+.detail-tabs-wrapper.is-stuck {
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 6px 20px rgba(45, 58, 39, 0.08);
+}
+
+@media (max-width: 768px) {
+  .detail-tabs-wrapper {
+    /* STICKY: menempel tepat di bawah header */
+    position: sticky;
+    top: var(--header-h-mobile, 64px);
+    z-index: 20;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201, 214, 191, 0.6);
+    /* Border radius atas tetap konsisten */
+    border-radius: 20px 20px 0 0;
+    /* Isolasi stacking context supaya tidak "nabrak" konten lain */
+    isolation: isolate;
+  }
+}
+
+/* Pane konten tab */
+.detail-tab-pane {
+  position: relative;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 0 0 20px 20px;
+  /* Padding-top supaya konten tidak "ketutup" indikator tab */
+  padding-top: 1rem;
+}
+
+.detail-tab-pane .tab-pane {
+  animation: fadeInUp 0.35s ease-out;
+}
+
+@media (max-width: 768px) {
+  .detail-tab-pane {
+    padding-top: 1.25rem;
+  }
+}
+
+/* Tab button dalam detail page */
+.detail-tabs-wrapper .tab-btn {
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  white-space: nowrap;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .detail-tabs-wrapper .tab-btn {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 14px;
+    min-height: 52px;
+  }
+}
+
+/* ==================== SWIPER PAGINATION ==================== */
+.swiper-pagination-bullet {
+  background: var(--milky-latte) !important;
+  opacity: 1 !important;
+  width: 28px !important;
+  height: 4px !important;
+  border-radius: 4px !important;
+  transition: all 0.3s !important;
+}
+.swiper-pagination-bullet-active {
+  background: var(--dark-matcha) !important;
+  width: 36px !important;
+}
+
+/* ==================== STICKY CTA MOBILE ==================== */
+.sticky-cta {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 -8px 32px rgba(45,58,39,0.08);
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
+/* ==================== ADMIN ==================== */
+.admin-sidebar {
+  background: rgba(45,58,39,0.95);
+  backdrop-filter: blur(20px);
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.float-animation { animation: float 4s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.35s ease-out; }
+
+/* ==================== PROGRESS BAR ==================== */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--soft-matcha), var(--earthy-green));
+  z-index: 9999;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 0 10px rgba(181,197,140,0.6);
+}
+
+/* ==================== LINE CLAMP ==================== */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==================== TOAST ==================== */
+#cf-toast-container { pointer-events: none; }
+#cf-toast-container > * { pointer-events: auto; }
+
+/* ==================== ADMIN FORM FOCUS ==================== */
+.admin-section input:focus,
+.admin-section textarea:focus,
+.admin-section select:focus {
+  border-color: var(--soft-matcha) !important;
+  box-shadow: 0 0 0 3px rgba(181, 197, 140, 0.2);
+  outline: none;
+}
+
+/* ==================== SKELETON ==================== */
+.skeleton-row {
+  height: 60px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ==================== DETAIL PAGE MOBILE SAFE ==================== */
+@media (max-width: 768px) {
+  .detail-content-mobile-pad {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #detail-content {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: visible;
+    min-height: auto;
+  }
+  body.detail-page {
+    overflow-y: auto !important;
+    height: auto !important;
+    position: relative;
+    touch-action: pan-y !important;
+  }
+}
+
+.swiper-slide {
+  touch-action: pan-y !important;
+}
+
+/* ==================== UPLOAD PROGRESS PANEL ==================== */
+#cf-upload-panel {
+  animation: fadeInUp 0.3s ease-out;
+}
+#cf-upload-panel .spinner {
+  width: 12px;
+  height: 12px;
+  border-width: 2px;
+}

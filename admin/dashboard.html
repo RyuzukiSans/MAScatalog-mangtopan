@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - MAScatalog</title>
+  <link id="dynamic-favicon" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232D3A27'/><text y='72' x='50' font-size='62' font-family='Arial' font-weight='bold' fill='%23B5C58C' text-anchor='middle'>F</text></svg>">
+  <script>
+    (function(){
+      const oWarn = console.warn;
+      console.warn = function(...a){ if((a[0]||'').toString().includes('cdn.tailwindcss.com should not be used')) return; oWarn.apply(console,a); };
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-[#121a0f] text-white min-h-screen font-[Plus_Jakarta_Sans] antialiased">
+
+  <div class="flex min-h-screen">
+    <aside class="admin-sidebar w-[260px] fixed left-0 top-0 bottom-0 z-40 border-r border-white/10 hidden md:flex flex-col">
+      <div class="p-6 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div id="admin-logo-fallback" class="w-10 h-10 rounded-xl matcha-gradient flex items-center justify-center font-extrabold flex-shrink-0">F</div>
+          <img id="admin-logo-img" src="" alt="Logo" class="hidden w-10 h-10 rounded-xl object-cover flex-shrink-0">
+          <div class="min-w-0">
+            <h1 id="admin-logo-text" class="font-extrabold text-[15px] leading-none truncate">MAScatalog</h1>
+            <p class="text-[11px] text-white/60 mt-0.5">ADMIN PANEL</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+        <button data-section="overview" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 bg-[#B5C58C] text-[#2D3A27] font-bold text-sm"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview</button>
+        <button data-section="books" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 text-white/70 hover:bg-white/10 text-sm"><i data-lucide="book-open" class="w-4 h-4"></i> Katalog Buku</button>
+        <button data-section="add-book" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 text-white/70 hover:bg-white/10 text-sm"><i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Buku</button>
+        <button data-section="settings" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 text-white/70 hover:bg-white/10 text-sm"><i data-lucide="settings" class="w-4 h-4"></i> Pengaturan</button>
+        <button data-section="socials" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 text-white/70 hover:bg-white/10 text-sm"><i data-lucide="share-2" class="w-4 h-4"></i> Media Sosial</button>
+        <button data-section="config" class="w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 text-white/70 hover:bg-white/10 text-sm"><i data-lucide="activity" class="w-4 h-4"></i> Status Sistem</button>
+      </nav>
+
+      <div class="p-4 border-t border-white/10">
+        <div class="glass rounded-xl p-3 bg-white/5 border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-[#B5C58C] flex items-center justify-center text-[#2D3A27] font-bold text-sm">F</div>
+            <div class="flex-1 min-w-0">
+              <p id="admin-name" class="text-sm font-bold truncate">Fuad</p>
+              <p id="admin-role" class="text-[11px] text-white/60">admin</p>
+            </div>
+            <button id="logout-btn" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-white transition"><i data-lucide="log-out" class="w-4 h-4"></i></button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="flex-1 md:ml-[260px]">
+      <div class="md:hidden sticky top-0 z-30 bg-[#121a0f] border-b border-white/10 p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div id="admin-logo-fallback-mobile" class="w-8 h-8 rounded-lg matcha-gradient flex items-center justify-center font-extrabold text-sm">F</div>
+          <img id="admin-logo-img-mobile" src="" alt="Logo" class="hidden w-8 h-8 rounded-lg object-cover">
+          <span class="font-bold">MAScatalog</span>
+        </div>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center"><i data-lucide="menu" class="w-5 h-5"></i></button>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden bg-[#1a2517] border-b border-white/10 p-4 space-y-2">
+        <button data-section="overview" class="w-full text-left px-4 py-3 rounded-xl bg-[#B5C58C] text-[#2D3A27] font-bold">Overview</button>
+        <button data-section="books" class="w-full text-left px-4 py-3 rounded-xl bg-white/10">Katalog Buku</button>
+        <button data-section="add-book" class="w-full text-left px-4 py-3 rounded-xl bg-white/10">Tambah Buku</button>
+        <button data-section="settings" class="w-full text-left px-4 py-3 rounded-xl bg-white/10">Pengaturan</button>
+        <button data-section="socials" class="w-full text-left px-4 py-3 rounded-xl bg-white/10">Media Sosial</button>
+        <button data-section="config" class="w-full text-left px-4 py-3 rounded-xl bg-white/10">Status Sistem</button>
+      </div>
+
+      <div class="p-6 md:p-8">
+        <!-- Overview -->
+        <section id="section-overview" class="admin-section">
+          <h2 class="text-[24px] font-extrabold mb-6">Overview</h2>
+          <div class="grid md:grid-cols-3 gap-4 mb-8">
+            <div class="rounded-[20px] bg-white/5 border border-white/10 p-6">
+              <p class="text-xs opacity-60 uppercase tracking-wide font-bold">Total Buku</p>
+              <p id="stat-total-books" class="text-[32px] font-extrabold mt-2">0</p>
+              <p class="text-xs opacity-50 mt-1">Aktif di katalog</p>
+            </div>
+            <div class="rounded-[20px] bg-white/5 border border-white/10 p-6">
+              <p class="text-xs opacity-60 uppercase tracking-wide font-bold">Kategori</p>
+              <p id="stat-categories" class="text-[32px] font-extrabold mt-2">0</p>
+            </div>
+            <div class="rounded-[20px] bg-white/5 border border-white/10 p-6">
+              <p class="text-xs opacity-60 uppercase tracking-wide font-bold">Mode Koneksi</p>
+              <p id="stat-mode" class="text-[20px] font-extrabold mt-2 text-amber-300">DEMO</p>
+              <p class="text-xs opacity-50 mt-1">Sumber data aktif</p>
+            </div>
+          </div>
+
+          <div class="rounded-[20px] bg-white/5 border border-white/10 p-6">
+            <h3 class="font-bold mb-3 flex items-center gap-2"><i data-lucide="info" class="w-4 h-4"></i> Panduan Cepat</h3>
+            <ul class="text-sm opacity-70 space-y-2 list-disc pl-5">
+              <li>Kelola buku di menu <b>Katalog Buku</b> - bisa edit & hapus</li>
+              <li>Upload gambar otomatis ke Google Drive</li>
+              <li>Kelola media sosial (tambah/edit/hapus) di menu <b>Media Sosial</b></li>
+              <li>URL GAS diambil otomatis dari <code class="px-1.5 py-0.5 bg-black/30 rounded">js/api.js</code></li>
+              <li>Logo & favicon otomatis sinkron dari Pengaturan</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Books -->
+        <section id="section-books" class="admin-section hidden">
+          <div class="flex items-center justify-between mb-6 gap-3 flex-wrap">
+            <h2 class="text-[24px] font-extrabold">Katalog Buku</h2>
+            <div class="flex gap-2">
+              <button id="gas-refresh" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 font-bold text-sm flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Refresh</button>
+              <button onclick="document.querySelector('[data-section=add-book]').click()" class="px-5 py-2.5 rounded-full bg-[#B5C58C] text-[#2D3A27] font-bold text-sm">+ Tambah Baru</button>
+            </div>
+          </div>
+          <div class="rounded-[20px] bg-white/5 border border-white/10 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="text-[11px] opacity-50 uppercase tracking-wide border-b border-white/10">
+                  <tr><th class="py-3 px-4">Buku</th><th class="py-3 px-4">Kategori</th><th class="py-3 px-4">Harga</th><th class="py-3 px-4">Status</th><th class="py-3 px-4">Aksi</th></tr>
+                </thead>
+                <tbody id="books-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Add/Edit Book -->
+        <section id="section-add-book" class="admin-section hidden">
+          <h2 id="form-title" class="text-[24px] font-extrabold mb-6">Tambah Buku Baru</h2>
+          <form id="book-form" class="space-y-6">
+            <input type="hidden" id="book-id">
+            <input type="hidden" id="input-cover-existing" name="cover_url_existing">
+            <input type="hidden" id="input-gallery-existing" name="gallery_existing">
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="space-y-5">
+                <div class="rounded-[20px] bg-white/5 border border-white/10 p-5">
+                  <h3 class="font-bold text-sm mb-4">Informasi Utama</h3>
+                  <div class="space-y-4">
+                    <div><label class="text-xs opacity-60">Judul Buku *</label><input id="input-title" name="title" required class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                    <div class="grid grid-cols-2 gap-3">
+                      <div><label class="text-xs opacity-60">Slug</label><input id="input-slug" name="slug" placeholder="auto dari judul" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                      <div><label class="text-xs opacity-60">Kategori *</label><input id="input-category" name="category" required placeholder="Fikih" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                    </div>
+                    <div><label class="text-xs opacity-60">Deskripsi Singkat *</label><textarea id="input-short" name="short_desc" required rows="2" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></textarea></div>
+                    <div class="grid grid-cols-2 gap-3">
+                      <div><label class="text-xs opacity-60">Harga (Rp) *</label><input id="input-price" name="price" type="number" required class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                      <div><label class="text-xs opacity-60">Status</label><select id="input-status" name="status" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"><option value="aktif">Aktif</option><option value="nonaktif">Nonaktif</option></select></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-[20px] bg-white/5 border border-white/10 p-5">
+                  <h3 class="font-bold text-sm mb-4">Spesifikasi</h3>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div><label class="text-xs opacity-60">Penulis</label><input id="input-author" name="author" value="Taufan Fuad Ramadan, M.A." class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                    <div><label class="text-xs opacity-60">Dimensi</label><input id="input-dimension" name="dimension" value="14 x 21 cm" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                    <div><label class="text-xs opacity-60">Halaman</label><input id="input-pages" name="pages" placeholder="312 Halaman" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                    <div><label class="text-xs opacity-60">Tahun</label><input id="input-year" name="year" value="2026" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                    <div class="col-span-2"><label class="text-xs opacity-60">ISBN</label><input id="input-isbn" name="isbn" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-5">
+                <div class="rounded-[20px] bg-white/5 border border-white/10 p-5">
+                  <h3 class="font-bold text-sm mb-4">Media (Google Drive Auto-Replace)</h3>
+                  <div class="space-y-4">
+                    <div>
+                      <label class="text-xs opacity-60">Cover Utama</label>
+                      <input id="cover-file" type="file" accept="image/*" class="mt-2 block w-full text-xs opacity-70">
+                      <input id="input-cover-url" name="cover_url" type="hidden">
+                      <div id="cover-preview" class="mt-3"></div>
+                    </div>
+                    <div>
+                      <label class="text-xs opacity-60">Galeri (Cover Depan → Isi → Belakang)</label>
+                      <input id="gallery-files" type="file" accept="image/*" multiple class="mt-2 block w-full text-xs opacity-70">
+                      <div id="gallery-preview" class="mt-3 flex gap-2 flex-wrap"></div>
+                      <p class="text-[11px] opacity-40 mt-2">Kosongkan jika tidak ingin ubah galeri. Cover otomatis jadi galeri pertama jika belum ada.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-[20px] bg-white/5 border border-white/10 p-5">
+                  <div><label class="text-xs opacity-60">Sinopsis Lengkap *</label><textarea id="input-synopsis" name="synopsis" required rows="6" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></textarea></div>
+                  <div class="mt-4"><label class="text-xs opacity-60">Keistimewaan (1 baris = 1 poin)</label><textarea id="input-features" name="features" rows="4" placeholder="Manhaj Wasathiyah&#10;Dilengkapi dalil" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></textarea></div>
+                  <div class="mt-4"><label class="text-xs opacity-60">Link Pesan Custom (WA/Marketplace)</label><input id="input-order" name="order_link" placeholder="https://wa.me/..." class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+                </div>
+
+                <div class="flex gap-3">
+                  <button type="submit" class="flex-1 h-12 rounded-full bg-[#B5C58C] text-[#2D3A27] font-bold">Simpan Buku</button>
+                  <button type="button" id="cancel-edit" class="px-6 h-12 rounded-full bg-white/10 font-bold">Batal</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Settings -->
+        <section id="section-settings" class="admin-section hidden">
+          <h2 class="text-[24px] font-extrabold mb-6">Pengaturan Katalog</h2>
+          <form id="settings-form" class="max-w-xl space-y-4 rounded-[20px] bg-white/5 border border-white/10 p-6">
+            <div><label class="text-xs opacity-60">Teks Logo</label><input name="logo_text" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+            <div><label class="text-xs opacity-60">URL Logo Gambar (juga jadi favicon)</label><input name="logo_url" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm" placeholder="https://..."></div>
+            <div><label class="text-xs opacity-60">Link Pesan Default</label><input name="default_order_link" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+            <div><label class="text-xs opacity-60">Nama Penulis</label><input name="author_name" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></div>
+            <div><label class="text-xs opacity-60">Biografi Lengkap</label><textarea name="author_bio" rows="6" class="mt-1 w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-sm"></textarea></div>
+            <button type="submit" class="w-full h-12 rounded-full bg-[#B5C58C] text-[#2D3A27] font-bold">Simpan Pengaturan</button>
+          </form>
+        </section>
+
+        <!-- Socials -->
+        <section id="section-socials" class="admin-section hidden">
+          <h2 class="text-[24px] font-extrabold mb-6">Media Sosial Footer</h2>
+          <div id="socials-list" class="space-y-3 max-w-xl"></div>
+          <div class="mt-6 p-4 rounded-xl bg-white/5 border border-white/10 max-w-xl text-xs opacity-60">
+            Pilih platform dari daftar, isi URL, dan simpan. Icon akan muncul otomatis di footer katalog publik.
+          </div>
+        </section>
+
+        <!-- Config Info -->
+        <section id="section-config" class="admin-section hidden">
+          <h2 class="text-[24px] font-extrabold mb-6">Status Sistem</h2>
+          <div class="max-w-2xl space-y-6">
+            <div class="rounded-[20px] bg-white/5 border border-white/10 p-6">
+              <h3 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="database" class="w-4 h-4"></i> Koneksi Google Apps Script</h3>
+              <p class="text-xs opacity-60 mb-3">URL GAS otomatis diambil dari <code class="px-1.5 py-0.5 bg-black/20 rounded">js/api.js</code>.</p>
+              <div id="gas-status" class="mb-3 p-3 rounded-xl bg-white/5 border border-white/10 text-sm"></div>
+              <div class="mb-3">
+                <p class="text-[11px] opacity-50 mb-1">URL Aktif Saat Ini:</p>
+                <div id="gas-current-url" class="text-xs font-mono break-all p-2 rounded bg-white/5"></div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button id="gas-test" class="flex-1 min-w-[140px] px-6 py-3 rounded-xl bg-[#B5C58C] text-[#2D3A27] font-bold text-sm">Test Koneksi</button>
+                <button id="gas-refresh" class="px-6 py-3 rounded-xl bg-white/10 font-bold text-sm">Refresh Data</button>
+                <button id="gas-clear" class="px-4 py-3 rounded-xl bg-red-500/20 text-red-300 font-bold text-sm">Reset Cache</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="../js/admin.js"></script>
+  <script>
+    function safeCreateIcons(){ try{ if(window.lucide && lucide.createIcons) lucide.createIcons(); } catch(e){} }
+    window.addEventListener('load', safeCreateIcons);
+    setTimeout(safeCreateIcons, 800);
+    setInterval(safeCreateIcons, 3000);
+  </script>
+</body>
+</html>

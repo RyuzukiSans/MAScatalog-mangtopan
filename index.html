@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAScatalog - Personal Book Catalog</title>
+  <meta name="description" content="Katalog resmi buku karya Taufan Fuad Ramadan, M.A. - Alumni Al-Azhar Mesir.">
+  <link id="dynamic-favicon" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232D3A27'/><text y='72' x='50' font-size='62' font-family='Arial' font-weight='bold' fill='%23B5C58C' text-anchor='middle'>F</text></svg>">
+  
+  <script>
+    (function(){
+      const ow = console.warn;
+      console.warn = function(...a){ if((a[0]||'').toString().includes('cdn.tailwindcss.com should not be used')) return; ow.apply(console,a); };
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { matcha: { soft: '#B5C58C', earthy: '#A3B18A', milky: '#C9D6BF', light: '#F4F6F0', dark: '#2D3A27' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen antialiased overflow-x-hidden">
+
+  <header class="sticky top-0 z-40 glass-strong border-b border-white/40">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <div id="logo-fallback" class="w-10 h-10 rounded-full matcha-gradient flex items-center justify-center text-white font-extrabold text-lg shadow-lg flex-shrink-0">F</div>
+          <img id="logo-img" src="" alt="Logo" class="hidden h-10 w-10 rounded-full object-cover flex-shrink-0">
+          <div class="min-w-0">
+            <h1 id="logo-text" class="font-extrabold text-[18px] leading-none tracking-tight text-[#2D3A27] truncate">MAScatalog</h1>
+            <p class="text-[11px] opacity-60 font-medium tracking-wide truncate">Personal Book Catalog</p>
+          </div>
+        </div>
+
+        <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+          <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 opacity-40"></i>
+          <input id="search-input-desktop" type="text" placeholder="Cari judul, penulis, kategori..." class="search-glass w-full pl-11 pr-4 py-3 rounded-full text-sm">
+        </div>
+
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button id="mobile-search-toggle" class="md:hidden w-10 h-10 rounded-full glass flex items-center justify-center" aria-label="Cari">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-search-wrap" class="hidden md:hidden mt-3 relative">
+        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 opacity-40"></i>
+        <input id="search-input" type="text" placeholder="Cari buku..." class="search-glass w-full pl-11 pr-11 py-3.5 rounded-full text-sm" autocomplete="off">
+        <button id="mobile-search-close" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#2D3A27] text-white flex items-center justify-center" aria-label="Tutup">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+    <div class="flex items-center gap-3 mb-6 overflow-x-auto scrollbar-none pb-2 -mx-1 px-1">
+      <div class="flex items-center gap-2 mr-2 text-sm font-bold opacity-60 whitespace-nowrap">
+        <i data-lucide="filter" class="w-4 h-4"></i> Filter:
+      </div>
+      <div id="category-pills" class="flex gap-2">
+        <div class="h-9 w-20 rounded-full shimmer"></div>
+        <div class="h-9 w-20 rounded-full shimmer"></div>
+        <div class="h-9 w-20 rounded-full shimmer"></div>
+      </div>
+      <div class="ml-auto pl-4 flex items-center gap-2 text-xs font-medium opacity-60 whitespace-nowrap">
+        <span id="book-count">0 buku</span>
+      </div>
+    </div>
+
+    <div class="glass rounded-[24px] p-6 md:p-8 mb-8 relative overflow-hidden">
+      <div class="absolute -top-20 -right-20 w-72 h-72 bg-[#B5C58C]/30 rounded-full blur-[40px]"></div>
+      <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-[#A3B18A]/20 rounded-full blur-[40px]"></div>
+      <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-[22px] md:text-[28px] font-extrabold leading-tight text-[#2D3A27]">Literasi Islam Moderat<br><span class="text-[#A3B18A]">Manhaj Al-Azhar</span></h2>
+          <p class="text-sm opacity-70 mt-2 max-w-lg">Koleksi buku karya alumni Al-Azhar Mesir Cumlaude 2025 dengan pendekatan wasathiyah untuk generasi muda.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="glass px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#A3B18A]"></span>
+            <span>Katalog Resmi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
+      <div class="glass-card rounded-[16px] md:rounded-[20px] overflow-hidden"><div class="aspect-[3/4] shimmer"></div><div class="p-3 md:p-4 space-y-2"><div class="h-4 shimmer rounded"></div><div class="h-3 shimmer rounded w-2/3"></div></div></div>
+      <div class="glass-card rounded-[16px] md:rounded-[20px] overflow-hidden"><div class="aspect-[3/4] shimmer"></div><div class="p-3 md:p-4 space-y-2"><div class="h-4 shimmer rounded"></div><div class="h-3 shimmer rounded w-2/3"></div></div></div>
+      <div class="glass-card rounded-[16px] md:rounded-[20px] overflow-hidden"><div class="aspect-[3/4] shimmer"></div><div class="p-3 md:p-4 space-y-2"><div class="h-4 shimmer rounded"></div><div class="h-3 shimmer rounded w-2/3"></div></div></div>
+      <div class="glass-card rounded-[16px] md:rounded-[20px] overflow-hidden"><div class="aspect-[3/4] shimmer"></div><div class="p-3 md:p-4 space-y-2"><div class="h-4 shimmer rounded"></div><div class="h-3 shimmer rounded w-2/3"></div></div></div>
+    </div>
+
+    <div id="catalog-grid" class="hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6"></div>
+    <div id="empty-state" class="hidden"></div>
+  </main>
+
+  <footer class="mt-16 border-t border-[#C9D6BF]/50 bg-white/50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-10">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <div id="footer-logo-fallback" class="w-9 h-9 rounded-full matcha-gradient flex items-center justify-center text-white font-bold">F</div>
+            <img id="footer-logo-img" src="" alt="Logo" class="hidden w-9 h-9 rounded-full object-cover">
+            <span id="footer-logo-text" class="font-extrabold text-lg">MAScatalog</span>
+          </div>
+          <p class="text-sm opacity-70 leading-relaxed">Platform katalog resmi buku-buku karya Taufan Fuad Ramadan, M.A.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-3">Tentang Penulis</h4>
+          <p class="text-xs opacity-70 leading-relaxed">Alumni Daar El-Huda, Ma'had Aly Tebuireng, S1/S2 Al-Azhar Kairo Cumlaude 2025.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-3">Ikuti Kami</h4>
+          <div id="footer-socials" class="flex gap-2 flex-wrap"></div>
+          <p class="text-[11px] opacity-50 mt-6">© 2026 MAScatalog.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    function safeCreateIcons(){ try{ if(window.lucide && lucide.createIcons) lucide.createIcons(); } catch(e){} }
+    window.addEventListener('load', safeCreateIcons);
+    setTimeout(safeCreateIcons, 500);
+  </script>
+</body>
+</html>
