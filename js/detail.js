@@ -309,7 +309,10 @@ function bindShare() {
   if (!btn) return;
   const orig = btn.innerHTML;
   btn.addEventListener('click', async () => {
-    const url = window.location.href;
+    // UBAH: pakai /api/detail?slug=... bukan /detail.html?slug=...
+    const slug = new URLSearchParams(window.location.search).get('slug');
+    const url = `${window.location.origin}/api/detail?slug=${encodeURIComponent(slug)}`;
+    
     try {
       if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(url);
       else {
